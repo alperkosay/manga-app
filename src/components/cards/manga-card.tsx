@@ -3,11 +3,12 @@ import React from "react";
 import { env } from "~/env";
 import { Manga } from "~/types/manga";
 import CardPlaceholder from "./card-placeholder.webp";
+import Link from "next/link";
 
 export default function MangaCard({ manga }: { manga: Manga }) {
   return (
     <div className="flex flex-col">
-      <div>
+      <Link className="block" href={`/manga/${manga.attributes.slug}`}>
         <Image
           src={
             env.NEXT_PUBLIC_MEDIA_PREFIX +
@@ -20,7 +21,7 @@ export default function MangaCard({ manga }: { manga: Manga }) {
           blurDataURL={CardPlaceholder.src}
           alt={manga.attributes.title}
         />
-      </div>
+      </Link>
 
       <div>
         <h3 className="text-lg">{manga.attributes.title}</h3>
