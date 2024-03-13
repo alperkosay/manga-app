@@ -14,12 +14,12 @@ const gridVariants = cva("grid gap-4", {
   },
 });
 
-export default function MangaGrid({
-  size,
-  children,
-}: {
-  size?: VariantProps<typeof gridVariants>;
+export interface GridProps extends VariantProps<typeof gridVariants> {
+  asChild?: boolean;
   children: React.ReactNode;
-}) {
-  return <div className={gridVariants({ size })}>{children}</div>;
+}
+
+export default function MangaGrid({ size, ...props }: GridProps) {
+  const Comp = "div";
+  return <Comp className={gridVariants({ size })} {...props} />;
 }

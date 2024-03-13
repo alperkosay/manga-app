@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import MangaCard from "~/components/cards/manga-card";
 import MangaGrid from "~/components/manga-grid";
-import { env } from "~/env";
 
 import { api } from "~/trpc/server";
+import IndexReveal from "./_components/index-reveal";
+import IndexRevealV2 from "./_components/index-reveal-v2";
 
 export default async function Home() {
   unstable_noStore();
@@ -14,6 +15,8 @@ export default async function Home() {
 
   return (
     <main>
+      {/* <IndexReveal /> */}
+      <IndexRevealV2 />
       <section>
         <div className="container">
           <h1>Mangalar</h1>
