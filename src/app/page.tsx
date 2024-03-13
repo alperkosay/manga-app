@@ -7,6 +7,7 @@ import MangaGrid from "~/components/manga-grid";
 import { api } from "~/trpc/server";
 import IndexReveal from "./_components/index-reveal";
 import IndexRevealV2 from "./_components/index-reveal-v2";
+import ScrollMarquee from "./_components/scroll-marquee";
 
 export default async function Home() {
   unstable_noStore();
@@ -17,6 +18,7 @@ export default async function Home() {
     <main>
       {/* <IndexReveal /> */}
       <IndexRevealV2 />
+      <ScrollMarquee />
       <section>
         <div className="container">
           <h1>Mangalar</h1>

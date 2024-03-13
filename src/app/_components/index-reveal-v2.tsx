@@ -5,13 +5,14 @@ import Image from "next/image";
 import React, { useRef } from "react";
 
 export default function IndexRevealV2() {
-  const container = useRef(null);
+  const container = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       const tl = gsap.timeline({
         onComplete: () => {
           localStorage.setItem("first-load-animation", "true");
+          container.current?.remove();
         },
       });
 
@@ -58,9 +59,9 @@ export default function IndexRevealV2() {
   return (
     <div
       ref={container}
-      className="absolute left-0 top-0 flex h-svh w-screen overflow-hidden "
+      className="absolute left-0 top-0 flex h-svh w-screen overflow-hidden bg-background"
     >
-      <div className="bg-overlay fixed inset-0 left-0 top-0 z-20 bg-black/75 backdrop-blur-sm"></div>
+      <div className="bg-overlay fixed inset-0 left-0 top-0 z-20 bg-background/75 backdrop-blur-sm"></div>
       <div className="slide-wrapper relative h-full w-full">
         <div className="image-slides relative z-10 flex h-full w-full">
           {[...Array(7)].map((_, index) => (

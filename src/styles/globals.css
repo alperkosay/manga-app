@@ -56,3 +56,32 @@
     @apply bg-background text-foreground;
   }
 }
+
+.marquee {
+  position: relative;
+  display: flex;
+  display: flex;
+  gap: 50px;
+  z-index: 10;
+}
+.marquee .marquee-content {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  min-width: 100%;
+  gap: 50px;
+}
+
+.marquee .marquee-content.scroll {
+  animation: marquee 120s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(calc(-100% - 50px));
+  }
+}
