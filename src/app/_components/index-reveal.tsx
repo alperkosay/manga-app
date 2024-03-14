@@ -68,7 +68,7 @@ export default function IndexReveal() {
     >
       <div className="bg-overlay fixed inset-0 left-0 top-0 z-10 bg-black/75 backdrop-blur-sm"></div>
       <div className="slide-wrapper relative flex">
-        {[...Array(7)].map((_, index) => (
+        {[...(Array(7) as number[])].map((_, index) => (
           <Image
             src={`/images/reveal-images/${index + 1}.webp`}
             width={768}

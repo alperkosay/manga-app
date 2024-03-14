@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import Header from "~/components/layout/header";
+import { comfortaa, archivo_black } from "~/lib/fonts";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,7 +23,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html
+      lang="en"
+      className={`dark ${comfortaa.variable} ${archivo_black.variable}`}
+    >
       <body className={`font-sans ${inter.variable}`}>
         <Header />
         <TRPCReactProvider>

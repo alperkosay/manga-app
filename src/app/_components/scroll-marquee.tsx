@@ -1,4 +1,9 @@
-import React from "react";
+"use client";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useRef } from "react";
+import { cn } from "~/lib/utils";
 
 const PopularMangaList = [
   "One Piece",
@@ -32,10 +37,36 @@ const PopularMangaList = [
   "Neon Genesis Evangelion",
   "Sword Art Online",
 ];
+gsap.registerPlugin(ScrollTrigger);
 
-export default function ScrollMarquee() {
+export default function ScrollMarquee({ className }: { className?: string }) {
+  const container = useRef<HTMLDivElement>(null);
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "main",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1,
+        },
+      });
+
+      tl.to(".marquee-content.scroll", {
+        animationDuration: "60s",
+      });
+    },
+    { scope: container },
+  );
+
   return (
-    <div className="h-full -translate-y-1/2 -rotate-45 overflow-hidden">
+    <div
+      className={cn(
+        "pointer-events-none fixed left-0 top-0 -z-10 w-screen rotate-12 overflow-hidden bg-black",
+        className,
+      )}
+      ref={container}
+    >
       <div className="marquee">
         <div className="marquee-content scroll">
           <MangaList />
@@ -51,7 +82,10 @@ export default function ScrollMarquee() {
 
 function MangaList() {
   return PopularMangaList.map((manga, index) => (
-    <span className="text-7xl" key={index}>
+    <span
+      className="font-archivo_black py-4 text-4xl opacity-20 md:text-8xl"
+      key={index}
+    >
       {manga}
     </span>
   ));

@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Logo from "./logo";
 import { Button } from "../ui/button";
-import useScroll from "~/hooks/use-scroll";
 import Link from "next/link";
 
 import gsap from "gsap";
@@ -28,10 +27,8 @@ const menuLinks = [
 ];
 
 export default function Header() {
-  const { scrollCount } = useScroll();
-  const scrollPoint = scrollCount > 120;
   const [isMenuActive, setIsMenuActive] = useState(false);
-  const tl = useRef<any>();
+  const tl = useRef<gsap.core.Timeline>();
 
   const toggleMenu = () => setIsMenuActive((val) => !val);
 
@@ -68,9 +65,9 @@ export default function Header() {
 
   useEffect(() => {
     if (isMenuActive) {
-      tl.current.play();
+      tl.current?.play();
     } else {
-      tl.current.reverse();
+      tl.current?.reverse();
     }
   }, [isMenuActive]);
 
@@ -89,7 +86,7 @@ export default function Header() {
           </Button>
         </div>
       </header>
-      <div className="bg-secondary header-menu fixed left-0 top-0 z-40 h-svh w-full -translate-y-full  pt-32">
+      <div className="header-menu fixed left-0 top-0 z-40 h-svh w-full -translate-y-full bg-secondary  pt-32">
         <div className="relative h-full w-full">
           <nav className="absolute left-8 top-0 md:left-1/4">
             <ul className="flex flex-col">
@@ -113,7 +110,7 @@ export default function Header() {
 
           <button
             onClick={toggleMenu}
-            className="text-muted close-btn absolute bottom-10 left-10 text-9xl"
+            className="close-btn absolute bottom-10 left-10 text-9xl text-muted"
           >
             <p>&#x2715;</p>
           </button>

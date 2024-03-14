@@ -59,12 +59,12 @@ export default function IndexRevealV2() {
   return (
     <div
       ref={container}
-      className="absolute left-0 top-0 flex h-svh w-screen overflow-hidden bg-background"
+      className="fixed left-0 top-0 z-20 flex h-svh w-screen overflow-hidden bg-background"
     >
       <div className="bg-overlay fixed inset-0 left-0 top-0 z-20 bg-background/75 backdrop-blur-sm"></div>
       <div className="slide-wrapper relative h-full w-full">
         <div className="image-slides relative z-10 flex h-full w-full">
-          {[...Array(7)].map((_, index) => (
+          {[...(Array(7) as number[])].map((_, index) => (
             <Image
               src={`/images/reveal-images/${index + 1}.webp`}
               width={768}
@@ -77,7 +77,7 @@ export default function IndexRevealV2() {
         </div>
 
         <div className="grid-slides absolute left-0 top-0 flex h-full w-full justify-center">
-          {[...Array(7)].map((_, index) => (
+          {[...(Array(7) as number[])].map((_, index) => (
             <Image
               src={`/images/reveal-images/${index + 1}.webp`}
               width={768}
