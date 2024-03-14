@@ -8,6 +8,7 @@ import ScrollMarquee from "./_components/scroll-marquee";
 import SectionTitle from "~/components/ui/section-title";
 import { Button } from "~/components/ui/button";
 import { ChevronRight, ChevronRightCircle, ChevronsRight } from "lucide-react";
+import Link from "next/link";
 
 export default async function Home({
   searchParams,
@@ -21,33 +22,51 @@ export default async function Home({
 
   const lastUpdatedMangas = await api.manga.getLastUpdateds.query();
 
+  const genres = await api.genre.getAll.query();
+
   return (
     <main className="min-h-[400vh]">
       <IndexRevealV2 />
       <ScrollMarquee />
       <ScrollMarquee className="-rotate-6" />
-      <div className="container flex gap-24">
+      <div className="container flex flex-col gap-24 md:flex-row">
         <section className="flex-1">
-          <div className=" space-y-4">
+          <div className="space-y-4">
             <div className="flex items-center justify-between">
               <SectionTitle>
                 <h1>Son Güncellenenler</h1>
               </SectionTitle>
-              <Button variant={"link"} className=" gap-2">
-                Tüm Mangalar <ChevronRight />
-              </Button>
             </div>
-            <MangaGrid size={"lg"}>
+            <MangaGrid size={"sm"}>
               {lastUpdatedMangas.data.map((manga, index) => (
                 <MangaCard manga={manga} key={index} />
               ))}
             </MangaGrid>
           </div>
+          <div className="mt-6 flex justify-end">
+            <Button asChild variant={"link"} className="gap-2">
+              <Link href={"/manga"}>
+                Tüm Mangalar <ChevronRight />
+              </Link>
+            </Button>
+          </div>
         </section>
-        <aside className="w-96">
+        <aside className="w-full space-y-2 sm:w-60 xl:w-96">
           <SectionTitle>
             <p>Kategoriler</p>
           </SectionTitle>
+
+          <ul className="flex w-full flex-wrap gap-4">
+            {genres.data.map((genre, index) => (
+              <li key={index}>
+                <Button variant={"outline"}>
+                  <Link href={`/kategoriler/${genre.attributes.slug}`}>
+                    {genre.attributes.title}
+                  </Link>
+                </Button>
+              </li>
+            ))}
+          </ul>
         </aside>
       </div>
     </main>

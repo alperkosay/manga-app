@@ -4,9 +4,9 @@ import React from "react";
 const gridVariants = cva("grid gap-4", {
   variants: {
     size: {
-      default: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4",
-      sm: "grid-cols-2 sm:grid-cols-4 lg:grid-cols-5",
-      lg: "grid-cols-2 sm:grid-cols-4 md:5 lg:grid-cols-6",
+      default: "grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
+      sm: "grid-cols-2 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-5",
+      lg: "grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6",
     },
   },
   defaultVariants: {

@@ -98,7 +98,7 @@ export default function Header() {
                   <Link
                     href={item.href}
                     title={item.title}
-                    className="menu-link inline-block text-7xl"
+                    className="menu-link inline-block text-5xl md:text-7xl"
                     onClick={toggleMenu}
                   >
                     {item.title}
@@ -110,7 +110,7 @@ export default function Header() {
 
           <button
             onClick={toggleMenu}
-            className="close-btn absolute bottom-10 left-10 text-9xl text-muted"
+            className="close-btn absolute bottom-10 left-10 text-6xl text-muted md:text-9xl"
           >
             <p>&#x2715;</p>
           </button>
