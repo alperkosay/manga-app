@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import useScroll from "~/hooks/use-scroll";
 
 const menuLinks = [
   {
@@ -73,11 +74,9 @@ export default function Header() {
 
   return (
     <>
-      <header
-        className={` ${isMenuActive ? "fixed" : "absolute"} left-0 top-0 z-50 w-full`}
-      >
-        <div className="flex items-center justify-between p-8">
-          <Link href={"/"} className="inline-block">
+      <header className={`fixed left-0 top-0 z-50 w-full backdrop-blur-sm`}>
+        <div className="flex items-center justify-between px-6 py-6">
+          <Link href={"/"} className="relative inline-block">
             <Logo />
           </Link>
 

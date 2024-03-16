@@ -1,47 +1,50 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import { env } from "~/env";
-import { Manga } from "~/types/manga";
+import { Manga, Manga_Plain } from "~/types/manga";
 import CardPlaceholder from "./card-placeholder.webp";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { calcDateDiff } from "~/lib/utils";
+import { api } from "~/trpc/react";
+import { Skeleton } from "../ui/skeleton";
 
-export default function MangaCard({ manga }: { manga: Manga }) {
+export default function MangaCard({ manga }: { manga: Manga_Plain }) {
+  // const mangaChapters =
+  //   api.mangaChapter.getLastUpdatedChaptersByMangaId.useQuery({
+  //     id: manga.id,
+  //   });
+
   return (
     <div className="flex flex-col">
-      <Link className="block" href={`/manga/${manga.attributes.slug}`}>
+      <Link className="block" href={`/manga/${manga.slug}`}>
         <Image
-          src={
-            env.NEXT_PUBLIC_MEDIA_PREFIX +
-            manga.attributes.cover.data.attributes.url
-          }
+          src={env.NEXT_PUBLIC_MEDIA_PREFIX + manga.cover.url}
           width={300}
           height={400}
           className="w-full object-cover"
           placeholder="blur"
           blurDataURL={CardPlaceholder.src}
-          alt={manga.attributes.title}
+          alt={manga.title}
         />
       </Link>
 
       <div>
-        <h3 className="mb-2 text-lg">{manga.attributes.title}</h3>
+        <h3 className="mb-2 text-lg">{manga.title}</h3>
 
         <div className="flex flex-col gap-y-2">
-          {manga.attributes.manga_chapters.data.map((chapter, index) => {
-            const dateDiff = calcDateDiff(
-              chapter.attributes.updatedAt.toString(),
-            );
+          {manga.manga_chapters.map((chapter, index) => {
+            const dateDiff = calcDateDiff(chapter.updatedAt.toString());
 
             return (
               <div key={index} className="flex items-center gap-2">
                 <Button asChild size={"xs"}>
                   <Link
-                    href={`/manga/${manga.attributes.slug}/${chapter.attributes.chapter}`}
+                    href={`/manga/${manga.slug}/${chapter.chapter}`}
                     className="gap-4"
                   >
-                    <span>Bölüm {chapter.attributes.chapter}</span>
+                    <span>Bölüm {chapter.chapter}</span>
                   </Link>
                 </Button>
                 <span className="text-xs">{dateDiff} önce</span>
@@ -52,4 +55,8 @@ export default function MangaCard({ manga }: { manga: Manga }) {
       </div>
     </div>
   );
+}
+
+function ChaptersSkeleton() {
+  return <Skeleton className="h-7 w-full" />;
 }

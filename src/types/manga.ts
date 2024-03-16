@@ -1,6 +1,6 @@
-import { Genre } from "./genre";
-import { MangaChapter } from "./manga-chapter";
-import { Media } from "./media";
+import { Genre, Genre_Plain } from "./genre";
+import { MangaChapter, MangaChapter_Plain } from "./manga-chapter";
+import { Media, Media_Plain } from "./media";
 
 export enum Status {
   YayNlanmad = "Yayınlanmadı",
@@ -24,4 +24,20 @@ export interface Manga {
     genres: { data: Genre[] };
     description?: string;
   };
+}
+
+export interface Manga_Plain {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  title: string;
+  slug: string;
+  status: Status;
+  otherNames?: string;
+  year: Date;
+  cover: Media_Plain;
+  manga_chapters: MangaChapter_Plain[];
+  genres: Genre_Plain[];
+  description?: string;
 }

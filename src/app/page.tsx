@@ -10,22 +10,15 @@ import { Button } from "~/components/ui/button";
 import { ChevronRight, ChevronRightCircle, ChevronsRight } from "lucide-react";
 import Link from "next/link";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: {
-    category?: string;
-    page?: string;
-  };
-}) {
+export default async function Home() {
   unstable_noStore();
 
   const lastUpdatedMangas = await api.manga.getLastUpdateds.query();
-
+  console.log(lastUpdatedMangas);
   const genres = await api.genre.getAll.query();
 
   return (
-    <main className="min-h-[400vh]">
+    <main>
       <IndexRevealV2 />
       <ScrollMarquee />
       <ScrollMarquee className="-rotate-6" />
@@ -38,7 +31,7 @@ export default async function Home({
               </SectionTitle>
             </div>
             <MangaGrid size={"sm"}>
-              {lastUpdatedMangas.data.map((manga, index) => (
+              {lastUpdatedMangas.map((manga, index) => (
                 <MangaCard manga={manga} key={index} />
               ))}
             </MangaGrid>

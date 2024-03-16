@@ -1,6 +1,6 @@
 import { env } from "~/env";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import { type Manga } from "~/types/manga";
+import { Manga_Plain, type Manga } from "~/types/manga";
 import { type Payload } from "~/types/payload";
 
 import QueryString from "qs";
@@ -11,7 +11,7 @@ export const mangaRouter = createTRPCRouter({
     });
 
     const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/mangas?${qs}`);
-    const data = (await response.json()) as Promise<Payload<Manga[]>>;
+    const data = (await response.json()) as Payload<Manga[]>;
 
     return data;
   }),
@@ -19,19 +19,16 @@ export const mangaRouter = createTRPCRouter({
   getLastUpdateds: publicProcedure.query(async () => {
     const qs = QueryString.stringify(
       {
-        populate: {
-          manga_chapters: {
-            sort: ["updatedAt:desc"],
-          },
-          cover: true,
-        },
+        limit: 20,
       },
       { encodeValuesOnly: true },
     );
 
-    console.log(`${env.NEXT_PUBLIC_API_URL}/mangas?${qs}`);
-    const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/mangas?${qs}`);
-    const data = (await response.json()) as Payload<Manga[]>;
+    console.log(`${env.NEXT_PUBLIC_API_URL}/mangas/getWithLastChapters?${qs}`);
+    const response = await fetch(
+      `${env.NEXT_PUBLIC_API_URL}/mangas/getWithLastChapters?${qs}`,
+    );
+    const data = (await response.json()) as Manga_Plain[];
 
     return data;
   }),

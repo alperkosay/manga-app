@@ -2,7 +2,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import React, { useRef } from "react";
+import React, { memo, useRef } from "react";
 import { cn } from "~/lib/utils";
 
 const PopularMangaList = [
@@ -39,7 +39,7 @@ const PopularMangaList = [
 ];
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ScrollMarquee({ className }: { className?: string }) {
+function ScrollMarquee({ className }: { className?: string }) {
   const container = useRef<HTMLDivElement>(null);
   useGSAP(
     () => {
@@ -56,7 +56,7 @@ export default function ScrollMarquee({ className }: { className?: string }) {
         animationDuration: "60s",
       });
     },
-    { scope: container },
+    // { scope: container },
   );
 
   return (
@@ -80,10 +80,12 @@ export default function ScrollMarquee({ className }: { className?: string }) {
   );
 }
 
+export default memo(ScrollMarquee);
+
 function MangaList() {
   return PopularMangaList.map((manga, index) => (
     <span
-      className="font-archivo_black py-4 text-4xl opacity-20 md:text-8xl"
+      className="py-4 font-archivo_black text-4xl opacity-20 md:text-8xl"
       key={index}
     >
       {manga}
