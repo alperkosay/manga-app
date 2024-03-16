@@ -41,7 +41,7 @@ export default function MangaCard({ manga }: { manga: Manga_Plain }) {
               <div key={index} className="flex items-center gap-2">
                 <Button asChild size={"xs"}>
                   <Link
-                    href={`/manga/${manga.slug}/${chapter.chapter}`}
+                    href={`/manga/${manga.slug}/chapter-${chapter.chapter}`}
                     className="gap-4"
                   >
                     <span>Bölüm {chapter.chapter}</span>
