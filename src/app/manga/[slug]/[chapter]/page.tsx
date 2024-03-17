@@ -4,6 +4,8 @@ import { env } from "~/env";
 import { api } from "~/trpc/server";
 import placeholderImg from "./_components/assets/card-placeholder.webp";
 import SectionTitle from "~/components/ui/section-title";
+import Link from "next/link";
+import ChapterBox from "./_components/chapter-box";
 
 export default async function MangaChapter({
   params,
@@ -15,6 +17,10 @@ export default async function MangaChapter({
   const chapterResponse = await api.mangaChapter.getByChapter.query({
     chapter: chapter,
     mangaSlug: params.slug,
+  });
+
+  const allChaptersResponse = await api.mangaChapter.getChaptersBySlug.query({
+    slug: params.slug,
   });
 
   return (
@@ -30,8 +36,17 @@ export default async function MangaChapter({
               </h1>
             </SectionTitle>
           </div>
+          <div>
+            <ChapterBox
+              chapters={allChaptersResponse.data}
+              params={{
+                slug: params.slug,
+                chapter,
+              }}
+            />
+          </div>
 
-          <div className="mx-auto w-max">
+          <div className="mx-auto md:w-max">
             {chapterResponse?.attributes.chapterImages.data?.map(
               (data, index) => (
                 <Image
@@ -42,6 +57,7 @@ export default async function MangaChapter({
                   placeholder="blur"
                   blurDataURL={placeholderImg.src}
                   alt={data.attributes.alternativeText}
+                  // className="w-full"
                 />
               ),
             )}
