@@ -7,15 +7,9 @@ import CardPlaceholder from "./card-placeholder.webp";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { calcDateDiff } from "~/lib/utils";
-import { api } from "~/trpc/react";
-import { Skeleton } from "../ui/skeleton";
+import { ROUTES } from "~/lib/consts";
 
 export default function MangaCard({ manga }: { manga: Manga_Plain }) {
-  // const mangaChapters =
-  //   api.mangaChapter.getLastUpdatedChaptersByMangaId.useQuery({
-  //     id: manga.id,
-  //   });
-
   return (
     <div className="flex flex-col">
       <Link className="block" href={`/manga/${manga.slug}`}>
@@ -57,6 +51,27 @@ export default function MangaCard({ manga }: { manga: Manga_Plain }) {
   );
 }
 
-function ChaptersSkeleton() {
-  return <Skeleton className="h-7 w-full" />;
-}
+export const MangaCardWithoutChapters = ({ manga }: { manga: Manga }) => {
+  return (
+    <div className="flex flex-col">
+      <Link className="block" href={`${ROUTES.manga}/${manga.attributes.slug}`}>
+        <Image
+          src={
+            env.NEXT_PUBLIC_MEDIA_PREFIX +
+            manga.attributes.cover.data.attributes.url
+          }
+          width={300}
+          height={400}
+          className="w-full object-cover"
+          placeholder="blur"
+          blurDataURL={CardPlaceholder.src}
+          alt={manga.attributes.title}
+        />
+      </Link>
+
+      <div>
+        <h3 className="mb-2 text-lg">{manga.attributes.title}</h3>
+      </div>
+    </div>
+  );
+};

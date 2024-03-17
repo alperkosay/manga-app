@@ -4,17 +4,36 @@ import { Manga_Plain, type Manga } from "~/types/manga";
 import { type Payload } from "~/types/payload";
 
 import QueryString from "qs";
+import { z } from "zod";
 export const mangaRouter = createTRPCRouter({
-  getAll: publicProcedure.query(async () => {
-    const qs = QueryString.stringify({
-      populate: "*",
-    });
+  getAll: publicProcedure
+    .input(
+      z
+        .object({
+          pageSize: z.string().or(z.number()).optional(),
+          page: z.string().or(z.number()).optional(),
+        })
+        .optional(),
+    )
+    .query(async ({ input }) => {
+      const qs = QueryString.stringify({
+        populate: {
+          cover: true,
+        },
+        sort: {
+          createdAt: "desc",
+        },
+        pagination: {
+          pageSize: input?.pageSize || 15,
+          page: input?.page,
+        },
+      });
 
-    const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/mangas?${qs}`);
-    const data = (await response.json()) as Payload<Manga[]>;
+      const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/mangas?${qs}`);
+      const data = (await response.json()) as Payload<Manga[]>;
 
-    return data;
-  }),
+      return data;
+    }),
 
   getLastUpdateds: publicProcedure.query(async () => {
     const qs = QueryString.stringify(

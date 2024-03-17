@@ -9,6 +9,7 @@ import SectionTitle from "~/components/ui/section-title";
 import { Button } from "~/components/ui/button";
 import { ChevronRight, ChevronRightCircle, ChevronsRight } from "lucide-react";
 import Link from "next/link";
+import { ROUTES } from "~/lib/consts";
 
 export default async function Home() {
   unstable_noStore();
@@ -38,7 +39,7 @@ export default async function Home() {
           </div>
           <div className="mt-6 flex justify-end">
             <Button asChild variant={"link"} className="gap-2">
-              <Link href={"/manga"}>
+              <Link href={ROUTES.manga}>
                 Tüm Mangalar <ChevronRight />
               </Link>
             </Button>
@@ -53,7 +54,7 @@ export default async function Home() {
             {genres.data.map((genre, index) => (
               <li key={index}>
                 <Button variant={"outline"}>
-                  <Link href={`/kategoriler/${genre.attributes.slug}`}>
+                  <Link href={`${ROUTES.categories}/${genre.attributes.slug}`}>
                     {genre.attributes.title}
                   </Link>
                 </Button>

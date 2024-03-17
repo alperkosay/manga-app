@@ -6,23 +6,23 @@ import Link from "next/link";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import useScroll from "~/hooks/use-scroll";
+import { ROUTES } from "~/lib/consts";
 
 const menuLinks = [
   {
-    href: "/",
+    href: ROUTES.home,
     title: "Anasayfa",
   },
   {
-    href: "/manga",
+    href: ROUTES.manga,
     title: "Mangalar",
   },
   {
-    href: "/kategori",
+    href: ROUTES.categories,
     title: "Kategoriler",
   },
   {
-    href: "/populer",
+    href: ROUTES.popular,
     title: "Popüler 🌟",
   },
 ];
@@ -76,7 +76,7 @@ export default function Header() {
     <>
       <header className={`fixed left-0 top-0 z-50 w-full backdrop-blur-sm`}>
         <div className="flex items-center justify-between px-6 py-6">
-          <Link href={"/"} className="relative inline-block">
+          <Link href={ROUTES.home} className="relative inline-block">
             <Logo />
           </Link>
 
