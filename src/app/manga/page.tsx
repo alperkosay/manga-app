@@ -13,13 +13,13 @@ export default async function MangaListPage({
     page?: string;
   };
 }) {
-  const mangaResponse = await api.manga.getAll.query({
+  const mangaListResponse = await api.manga.getAll.query({
     pageSize: 18,
     page: searchParams.page,
   });
 
   if (
-    !mangaResponse.data.length &&
+    !mangaListResponse.data.length &&
     searchParams.page &&
     searchParams.page !== "1"
   ) {
@@ -30,12 +30,12 @@ export default async function MangaListPage({
     <main>
       <div className="container">
         <MangaGrid size={"lg"}>
-          {mangaResponse.data.map((manga, index) => (
+          {mangaListResponse.data.map((manga, index) => (
             <MangaCardWithoutChapters manga={manga} key={index} />
           ))}
         </MangaGrid>
 
-        <Pagination meta={mangaResponse.meta} searchParams={searchParams} />
+        <Pagination meta={mangaListResponse.meta} searchParams={searchParams} />
       </div>
     </main>
   );
