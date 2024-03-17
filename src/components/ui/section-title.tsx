@@ -1,9 +1,24 @@
+import { VariantProps, cva } from "class-variance-authority";
 import React from "react";
 
-export default function SectionTitle({
-  children,
-}: {
+const sectionTitleVariant = cva("font-archivo_black ", {
+  variants: {
+    size: {
+      default: "text-4xl",
+      sm: "text-2xl",
+    },
+  },
+  defaultVariants: {
+    size: "default",
+  },
+});
+
+export interface SectionTitleProps
+  extends VariantProps<typeof sectionTitleVariant> {
   children?: React.ReactNode;
-}) {
-  return <div className="font-archivo_black text-4xl">{children}</div>;
+}
+
+export default function SectionTitle({ size, ...props }: SectionTitleProps) {
+  const Comp = "div";
+  return <Comp className={sectionTitleVariant({ size })} {...props} />;
 }

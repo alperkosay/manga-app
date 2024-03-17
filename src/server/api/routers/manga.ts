@@ -70,7 +70,6 @@ export const mangaRouter = createTRPCRouter({
         },
         { encodeValuesOnly: true },
       );
-      console.log(`${env.NEXT_PUBLIC_API_URL}/mangas?${qs}`);
       const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/mangas?${qs}`);
       const data = (await response.json()) as Payload<Manga[]>;
 

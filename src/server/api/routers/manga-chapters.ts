@@ -28,7 +28,7 @@ export const mangaChapterRouter = createTRPCRouter({
           encodeValuesOnly: true,
         },
       );
-        
+
       const response = await fetch(
         `${env.NEXT_PUBLIC_API_URL}/manga-chapters?${qs}`,
       );
@@ -36,5 +36,39 @@ export const mangaChapterRouter = createTRPCRouter({
       const data = (await response.json()) as Payload<MangaChapter[]>;
 
       return data;
+    }),
+
+  getByChapter: publicProcedure
+    .input(
+      z.object({
+        mangaSlug: z.string(),
+        chapter: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      const qs = QueryString.stringify(
+        {
+          populate: "*",
+          filters: {
+            manga: {
+              slug: {
+                $eq: input.mangaSlug,
+              },
+            },
+            chapter: {
+              $eq: input.chapter,
+            },
+          },
+        },
+        { encodeValuesOnly: true },
+      );
+
+      console.log(`${env.NEXT_PUBLIC_API_URL}/manga-chapters?${qs}`);
+      const response = await fetch(
+        `${env.NEXT_PUBLIC_API_URL}/manga-chapters?${qs}`,
+      );
+      const data = (await response.json()) as Payload<MangaChapter[]>;
+
+      return data.data[0];
     }),
 });
