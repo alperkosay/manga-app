@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Breadcrumb } from "~/components/ui/breadcrumb";
 import { Button } from "~/components/ui/button";
 import SectionTitle from "~/components/ui/section-title";
 import { env } from "~/env";
@@ -27,6 +28,9 @@ export default async function MangaPage({
 
   return (
     <main>
+      <section>
+        <Breadcrumb />
+      </section>
       <section>
         <div className="container flex flex-col gap-y-4 md:flex-row">
           <div className="flex h-80 w-full items-center justify-center overflow-hidden md:w-96">

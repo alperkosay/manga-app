@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { env } from "~/env";
 import { Manga, Manga_Plain } from "~/types/manga";
-import CardPlaceholder from "./card-placeholder.webp";
+import CardPlaceholder from "./assets/card-placeholder.webp";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { calcDateDiff } from "~/lib/utils";

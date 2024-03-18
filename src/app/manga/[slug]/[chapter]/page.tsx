@@ -6,6 +6,9 @@ import placeholderImg from "./_components/assets/card-placeholder.webp";
 import SectionTitle from "~/components/ui/section-title";
 import Link from "next/link";
 import ChapterBox from "./_components/chapter-box";
+import { ROUTES } from "~/lib/consts";
+import { Button } from "~/components/ui/button";
+import { Breadcrumb } from "~/components/ui/breadcrumb";
 
 export default async function MangaChapter({
   params,
@@ -26,8 +29,11 @@ export default async function MangaChapter({
   return (
     <main>
       <section>
+        <Breadcrumb />
+      </section>
+      <section>
         <div className="container">
-          <div className="mb-8 flex space-y-4 ">
+          <div className="mb-8 flex items-center justify-between space-y-4 ">
             <SectionTitle>
               <h1>
                 {chapterResponse?.attributes.manga?.data.attributes.title}
@@ -35,6 +41,9 @@ export default async function MangaChapter({
                 {chapterResponse?.attributes.title}
               </h1>
             </SectionTitle>
+            <Button asChild>
+              <Link href={`${ROUTES.manga}/${params.slug}`}>Geri Dön</Link>
+            </Button>
           </div>
           <div>
             <ChapterBox
