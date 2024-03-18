@@ -46,7 +46,7 @@ export default async function MangaPage({
             />
           </div>
           <div className="space-y-4 md:flex-1">
-            <div className="flex justify-between">
+            <div className="flex flex-col-reverse justify-between md:flex-row">
               <h1 className="font-archivo_black text-4xl">
                 {mangaData.attributes.title}
               </h1>
@@ -116,7 +116,7 @@ export default async function MangaPage({
                   className="flex justify-between border p-4 hover:bg-primary hover:text-primary-foreground"
                   href={`${ROUTES.manga}/${mangaData.attributes.slug}/chapter-${chapter.attributes.chapter}`}
                 >
-                  <span>{chapter.attributes.title}</span>
+                  <span className="text-xl">{chapter.attributes.title}</span>
                   <span>
                     {calcDateDiff(chapter.attributes.createdAt.toString())} Önce
                   </span>
