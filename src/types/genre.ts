@@ -1,4 +1,4 @@
-import { Manga } from "./manga";
+import { Manga, Manga_Plain } from "./manga";
 
 export interface Genre {
   id: number;
@@ -8,7 +8,7 @@ export interface Genre {
     publishedAt?: Date;
     title?: string;
     slug?: string;
-    manga?: { data: Manga };
+    manga?: { data: Manga[] };
   };
 }
 
