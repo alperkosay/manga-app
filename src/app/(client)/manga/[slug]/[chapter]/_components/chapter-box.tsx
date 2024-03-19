@@ -22,14 +22,13 @@ export default function ChapterBox({
         router.push(e.target.value);
       }}
       className="border bg-transparent p-2  text-white"
+      defaultValue={`${ROUTES.manga}/${params.slug}/chapter-${params.chapter}`}
     >
       {chapters.map((chapter, index) => (
         <option
           key={index}
           className={` ${chapter.attributes.chapter === params.chapter ? "font-bold text-primary" : "text-black"}`}
-          // disabled={chapter.attributes.chapter === params.chapter}
           value={`${ROUTES.manga}/${params.slug}/chapter-${chapter.attributes.chapter}`}
-          selected={chapter.attributes.chapter === params.chapter}
         >
           {chapter.attributes.chapter === params.chapter ? "✔️" : null}
           {chapter.attributes.title}

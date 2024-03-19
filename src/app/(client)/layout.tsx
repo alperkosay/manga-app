@@ -1,20 +1,14 @@
 import "~/styles/globals.css";
 
-import { Inter } from "next/font/google";
-
 import { TRPCReactProvider } from "~/trpc/react";
 import Header from "~/components/layout/header";
-import { comfortaa, archivo_black } from "~/lib/fonts";
+import { comfortaa, archivo_black, inter } from "~/lib/fonts";
 
 import NextTopLoader from "nextjs-toploader";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
+import Footer from "~/components/layout/footer";
 
 export const metadata = {
-  title: "Manga App",
+  title: "Future Manga",
   description: "Developed by Alper Koşay",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
@@ -32,9 +26,10 @@ export default function RootLayout({
       <body className={`font-sans ${inter.variable}`}>
         <NextTopLoader color="#3a31d8" />
 
-        <Header />
         <TRPCReactProvider>
+          <Header />
           <div className="pt-32">{children}</div>
+          <Footer />
         </TRPCReactProvider>
       </body>
     </html>

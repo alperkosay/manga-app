@@ -32,7 +32,7 @@ export const genreRouter = createTRPCRouter({
         },
         { encodeValuesOnly: true },
       );
-      console.log(`${env.NEXT_PUBLIC_API_URL}/genres?${qs}`);
+
       const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/genres?${qs}`);
       const data = (await response.json()) as Payload<Genre[]>;
 

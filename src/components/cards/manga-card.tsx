@@ -28,23 +28,21 @@ export default function MangaCard({ manga }: { manga: Manga_Plain }) {
         <h3 className="mb-2 text-lg">{manga.title}</h3>
 
         <div className="flex flex-col gap-y-2">
-          {manga.manga_chapters.map((chapter, index) => {
-            const dateDiff = calcDateDiff(chapter.updatedAt.toString());
-
-            return (
-              <div key={index} className="flex items-center gap-2">
-                <Button asChild size={"xs"}>
-                  <Link
-                    href={`/manga/${manga.slug}/chapter-${chapter.chapter}`}
-                    className="gap-4"
-                  >
-                    <span>Bölüm {chapter.chapter}</span>
-                  </Link>
-                </Button>
-                <span className="text-xs">{dateDiff} önce</span>
-              </div>
-            );
-          })}
+          {manga.manga_chapters.map((chapter, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <Button asChild size={"xs"}>
+                <Link
+                  href={`/manga/${manga.slug}/chapter-${chapter.chapter}`}
+                  className="gap-4"
+                >
+                  <span>Bölüm {chapter.chapter}</span>
+                </Link>
+              </Button>
+              <span className="text-xs">
+                {calcDateDiff(chapter.createdAt.toString()) || "Az"} önce
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

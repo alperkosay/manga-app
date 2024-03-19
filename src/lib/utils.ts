@@ -24,5 +24,5 @@ export function calcDateDiff(dateString: string) {
   if (days) return `${days} Gün`;
   if (hours) return `${hours} Saat`;
   if (minutes) return `${minutes} Dakika`;
-  if (seconds) return `${seconds} Saniye`;
+  if (seconds) return null;
 }

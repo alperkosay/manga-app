@@ -10,19 +10,24 @@ import { Button } from "~/components/ui/button";
 import { ChevronRight, ChevronRightCircle, ChevronsRight } from "lucide-react";
 import Link from "next/link";
 import { ROUTES } from "~/lib/consts";
+import HeroSection from "./_components/hero-section";
 
 export default async function Home() {
   unstable_noStore();
 
   const lastUpdatedMangas = await api.manga.getLastUpdateds.query();
-  console.log(lastUpdatedMangas);
   const genres = await api.genre.getAll.query();
+
+  const mainSlidesResponse = await api.mainSlides.getAll.query();
 
   return (
     <main>
       <IndexRevealV2 />
       <ScrollMarquee />
       <ScrollMarquee className="-rotate-6" />
+
+      <HeroSection mangaSlides={mainSlidesResponse.data} />
+
       <div className="container flex flex-col gap-24 md:flex-row">
         <section className="flex-1">
           <div className="space-y-4">

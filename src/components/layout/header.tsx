@@ -6,26 +6,7 @@ import Link from "next/link";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ROUTES } from "~/lib/consts";
-
-const menuLinks = [
-  {
-    href: ROUTES.home,
-    title: "Anasayfa",
-  },
-  {
-    href: ROUTES.manga,
-    title: "Mangalar",
-  },
-  {
-    href: ROUTES.categories,
-    title: "Kategoriler",
-  },
-  {
-    href: ROUTES.popular,
-    title: "Popüler 🌟",
-  },
-];
+import { ROUTES, menuLinks } from "~/lib/consts";
 
 export default function Header() {
   const [isMenuActive, setIsMenuActive] = useState(false);

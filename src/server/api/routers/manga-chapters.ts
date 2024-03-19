@@ -63,7 +63,6 @@ export const mangaChapterRouter = createTRPCRouter({
         { encodeValuesOnly: true },
       );
 
-      console.log(`${env.NEXT_PUBLIC_API_URL}/manga-chapters?${qs}`);
       const response = await fetch(
         `${env.NEXT_PUBLIC_API_URL}/manga-chapters?${qs}`,
       );
@@ -81,7 +80,7 @@ export const mangaChapterRouter = createTRPCRouter({
     .query(async ({ input }) => {
       const qs = QueryString.stringify(
         {
-          sort: ["updatedAt:desc"],
+          sort: ["createdAt:desc"],
           filters: {
             manga: {
               slug: {

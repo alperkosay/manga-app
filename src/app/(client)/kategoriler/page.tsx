@@ -1,13 +1,24 @@
-import Link from "next/link";
 import React from "react";
 import { Breadcrumb } from "~/components/ui/breadcrumb";
-import { ROUTES } from "~/lib/consts";
 import { api } from "~/trpc/server";
 import CategoryList from "./_components/category-list";
 import SectionTitle from "~/components/ui/section-title";
+import MangaSlider from "~/components/manga-slider";
 
-export default async function CategoryListPage() {
+export default async function CategoryListPage({
+  searchParams,
+}: {
+  searchParams: {
+    page?: string;
+  };
+}) {
   const genreResponse = await api.genre.getAll.query();
+
+  const mangaListResponse = await api.manga.getAll.query({
+    pageSize: 18,
+    page: searchParams.page,
+  });
+
   return (
     <main>
       <section>
@@ -20,6 +31,14 @@ export default async function CategoryListPage() {
             <h1>Kategoriler</h1>
           </SectionTitle>
           <CategoryList categories={genreResponse.data} />
+        </div>
+      </section>
+      <section>
+        <div className="container space-y-4">
+          <SectionTitle>
+            <h1>Diğer Mangalar</h1>
+          </SectionTitle>
+          <MangaSlider mangaData={mangaListResponse.data} />
         </div>
       </section>
     </main>

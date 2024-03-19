@@ -26,6 +26,16 @@ export default async function MangaChapter({
     slug: params.slug,
   });
 
+  const nextChapterResponse = await api.mangaChapter.getByChapter.query({
+    chapter: chapter + 1,
+    mangaSlug: params.slug,
+  });
+
+  const prevChapterResponse = await api.mangaChapter.getByChapter.query({
+    chapter: chapter - 1,
+    mangaSlug: params.slug,
+  });
+
   return (
     <main>
       <section>
@@ -41,11 +51,8 @@ export default async function MangaChapter({
                 {chapterResponse?.attributes.title}
               </h1>
             </SectionTitle>
-            <Button asChild>
-              <Link href={`${ROUTES.manga}/${params.slug}`}>Geri Dön</Link>
-            </Button>
           </div>
-          <div>
+          <div className="mb-4 flex justify-between">
             <ChapterBox
               chapters={allChaptersResponse.data}
               params={{
@@ -53,9 +60,37 @@ export default async function MangaChapter({
                 chapter,
               }}
             />
+            <Button asChild>
+              <Link href={`${ROUTES.manga}/${params.slug}`}>Geri Dön</Link>
+            </Button>
           </div>
 
           <div className="mx-auto md:w-max">
+            <div className="mb-4 flex justify-between gap-2">
+              <Button asChild size={"lg"}>
+                <Link
+                  href={
+                    prevChapterResponse
+                      ? `${ROUTES.manga}/${params.slug}/chapter-${prevChapterResponse?.attributes.chapter}`
+                      : "#"
+                  }
+                >
+                  Önceki Bölüm
+                </Link>
+              </Button>
+              <Button asChild size={"lg"}>
+                <Link
+                  href={
+                    nextChapterResponse
+                      ? `${ROUTES.manga}/${params.slug}/chapter-${nextChapterResponse?.attributes.chapter}`
+                      : "#"
+                  }
+                >
+                  Sonraki Bölüm
+                </Link>
+              </Button>
+            </div>
+
             {chapterResponse?.attributes.chapterImages.data?.map(
               (data, index) => (
                 <Image
@@ -70,6 +105,31 @@ export default async function MangaChapter({
                 />
               ),
             )}
+
+            <div className="mt-4 flex justify-between gap-2">
+              <Button asChild size={"lg"}>
+                <Link
+                  href={
+                    prevChapterResponse
+                      ? `${ROUTES.manga}/${params.slug}/chapter-${prevChapterResponse?.attributes.chapter}`
+                      : "#"
+                  }
+                >
+                  Önceki Bölüm
+                </Link>
+              </Button>
+              <Button asChild size={"lg"}>
+                <Link
+                  href={
+                    nextChapterResponse
+                      ? `${ROUTES.manga}/${params.slug}/chapter-${nextChapterResponse?.attributes.chapter}`
+                      : "#"
+                  }
+                >
+                  Sonraki Bölüm
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>

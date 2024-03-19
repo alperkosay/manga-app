@@ -1,4 +1,4 @@
-import { Comfortaa, Archivo_Black } from "next/font/google";
+import { Comfortaa, Archivo_Black, Inter } from "next/font/google";
 
 export const comfortaa = Comfortaa({
   subsets: ["latin"],
@@ -9,4 +9,9 @@ export const archivo_black = Archivo_Black({
   subsets: ["latin"],
   variable: "--family-archivo_black",
   weight: "400",
+});
+
+export const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
 });

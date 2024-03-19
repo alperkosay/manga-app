@@ -27,7 +27,7 @@ export default async function CategoryPage({
         <Breadcrumb />
       </section>
 
-      <section>
+      <section className="mb-8">
         <div className="container">
           <SectionTitle>
             <h1>
@@ -39,7 +39,10 @@ export default async function CategoryPage({
       </section>
 
       <section>
-        <div className="container">
+        <div className="container space-y-6">
+          <SectionTitle>
+            <h1>{genreSlugResponse?.attributes.title} Mangaları</h1>
+          </SectionTitle>
           <MangaGrid size={"lg"}>
             {genreSlugResponse?.attributes.manga?.data.map((manga, index) => (
               <MangaCardWithoutChapters manga={manga} key={index} />
