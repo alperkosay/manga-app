@@ -7,6 +7,21 @@ import MangaCard, {
   MangaCardWithoutChapters,
 } from "~/components/cards/manga-card";
 import SectionTitle from "~/components/ui/section-title";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const genreSlugResponse = await api.genre.getBySlug.query({
+    slug: params.slug,
+  });
+
+  return {
+    title: `${genreSlugResponse?.attributes.title} - Future Manga`,
+  };
+}
 
 export default async function CategoryPage({
   params,

@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -9,6 +10,22 @@ import { ROUTES } from "~/lib/consts";
 import { calcDateDiff } from "~/lib/utils";
 import { api } from "~/trpc/server";
 import { Status } from "~/types/manga";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const mangaData = await api.manga.getBySlug.query({ slug: params.slug });
+
+  if (!mangaData) {
+    return {};
+  }
+
+  return {
+    title: `${mangaData.attributes.title} - Future Manga`,
+  };
+}
 
 export default async function MangaPage({
   params,

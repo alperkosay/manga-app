@@ -9,6 +9,24 @@ import ChapterBox from "./_components/chapter-box";
 import { ROUTES } from "~/lib/consts";
 import { Button } from "~/components/ui/button";
 import { Breadcrumb } from "~/components/ui/breadcrumb";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { chapter: string; slug: string };
+}): Promise<Metadata> {
+  const chapter = Number(params.chapter.split("-")[1]);
+
+  const chapterResponse = await api.mangaChapter.getByChapter.query({
+    chapter: chapter,
+    mangaSlug: params.slug,
+  });
+
+  return {
+    title: `${chapterResponse?.attributes.title} - Future Manga`,
+  };
+}
 
 export default async function MangaChapter({
   params,
