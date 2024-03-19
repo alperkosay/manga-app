@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -32,6 +33,8 @@ export default async function MangaPage({
 }: {
   params: { slug: string };
 }) {
+  unstable_noStore();
+
   const mangaData = await api.manga.getBySlug.query({ slug: params.slug });
 
   if (!mangaData) {
@@ -79,7 +82,7 @@ export default async function MangaPage({
             </div>
             <div className="flex gap-4">
               <h2 className="text-xl">Diğer Adlar:</h2>
-              <p>{mangaData.attributes.otherNames || "-"}</p>
+              <p>{mangaData.attributes.otherNames ?? "-"}</p>
             </div>
             <div className="flex gap-4">
               <h2 className="text-xl">Türler:</h2>

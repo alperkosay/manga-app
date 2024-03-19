@@ -35,7 +35,7 @@ export default function HeroSection({
                 }
                 width={1440}
                 height={900}
-                alt={slide.attributes.manga?.data.attributes.title || "Slide"}
+                alt={slide.attributes.manga?.data.attributes.title ?? "Slide"}
                 className="absolute h-full w-full object-cover object-center blur-lg"
               />
 
@@ -52,7 +52,7 @@ export default function HeroSection({
                     width={400}
                     height={900}
                     alt={
-                      slide.attributes.manga?.data.attributes.title || "Slide"
+                      slide.attributes.manga?.data.attributes.title ?? "Slide"
                     }
                     className=" h-full w-40 object-contain md:w-80"
                   />

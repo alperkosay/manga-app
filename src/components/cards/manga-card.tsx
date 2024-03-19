@@ -39,7 +39,7 @@ export default function MangaCard({ manga }: { manga: Manga_Plain }) {
                 </Link>
               </Button>
               <span className="text-xs">
-                {calcDateDiff(chapter.createdAt.toString()) || "Az"} önce
+                {calcDateDiff(chapter.createdAt.toString()) ?? "Az"} önce
               </span>
             </div>
           ))}

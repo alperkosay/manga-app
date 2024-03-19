@@ -10,12 +10,15 @@ import { ROUTES } from "~/lib/consts";
 import { Button } from "~/components/ui/button";
 import { Breadcrumb } from "~/components/ui/breadcrumb";
 import { Metadata } from "next";
+import { unstable_noStore } from "next/cache";
 
 export async function generateMetadata({
   params,
 }: {
   params: { chapter: string; slug: string };
 }): Promise<Metadata> {
+  unstable_noStore();
+
   const chapter = Number(params.chapter.split("-")[1]);
 
   const chapterResponse = await api.mangaChapter.getByChapter.query({

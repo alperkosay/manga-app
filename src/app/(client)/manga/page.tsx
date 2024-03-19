@@ -1,3 +1,4 @@
+import { unstable_noStore } from "next/cache";
 import { redirect } from "next/navigation";
 import { userAgent } from "next/server";
 import React from "react";
@@ -16,6 +17,8 @@ export default async function MangaListPage({
     page?: string;
   };
 }) {
+  unstable_noStore();
+
   const mangaListResponse = await api.manga.getAll.query({
     pageSize: 18,
     page: searchParams.page,

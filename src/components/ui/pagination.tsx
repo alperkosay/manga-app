@@ -70,7 +70,7 @@ const Pagination = ({
               </PaginationLink>
             </li>
 
-            {[...Array(pagination.pageCount)].map((_, index) => {
+            {Array.from({ length: pagination.pageCount }).map((_, index) => {
               const page = index + 1;
               const isCurrentPage = page === pagination.page;
               const isLastPage = page === pagination.pageCount;

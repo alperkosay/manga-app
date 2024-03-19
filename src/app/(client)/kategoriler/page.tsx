@@ -4,6 +4,7 @@ import { api } from "~/trpc/server";
 import CategoryList from "./_components/category-list";
 import SectionTitle from "~/components/ui/section-title";
 import MangaSlider from "~/components/manga-slider";
+import { unstable_noStore } from "next/cache";
 
 export default async function CategoryListPage({
   searchParams,
@@ -12,6 +13,8 @@ export default async function CategoryListPage({
     page?: string;
   };
 }) {
+  unstable_noStore();
+
   const genreResponse = await api.genre.getAll.query();
 
   const mangaListResponse = await api.manga.getAll.query({

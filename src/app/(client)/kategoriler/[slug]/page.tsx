@@ -8,12 +8,15 @@ import MangaCard, {
 } from "~/components/cards/manga-card";
 import SectionTitle from "~/components/ui/section-title";
 import { Metadata } from "next";
+import { unstable_noStore } from "next/cache";
 
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
+  unstable_noStore();
+
   const genreSlugResponse = await api.genre.getBySlug.query({
     slug: params.slug,
   });

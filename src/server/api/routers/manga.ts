@@ -24,7 +24,7 @@ export const mangaRouter = createTRPCRouter({
           createdAt: "desc",
         },
         pagination: {
-          pageSize: input?.pageSize || 15,
+          pageSize: input?.pageSize ?? 15,
           page: input?.page,
         },
       });
