@@ -11,6 +11,7 @@ const config = {
       {
         hostname: "localhost",
       },
+      { hostname: "89.252.153.199", port: "8181", protocol: "http" },
     ],
   },
 };
