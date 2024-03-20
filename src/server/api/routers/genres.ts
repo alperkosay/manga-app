@@ -4,14 +4,11 @@ import { env } from "~/env";
 import { Genre } from "~/types/genre";
 import { Payload } from "~/types/payload";
 import { z } from "zod";
+import { getStrapiData } from "~/lib/utils";
 
 export const genreRouter = createTRPCRouter({
   getAll: publicProcedure.query(async () => {
-    const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/genres`);
-
-    const data = (await response.json()) as Payload<Genre[]>;
-
-    return data;
+    return getStrapiData<Genre[]>("/genres");
   }),
 
   getBySlug: publicProcedure
@@ -33,8 +30,7 @@ export const genreRouter = createTRPCRouter({
         { encodeValuesOnly: true },
       );
 
-      const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/genres?${qs}`);
-      const data = (await response.json()) as Payload<Genre[]>;
+      const data = await getStrapiData<Genre[]>("/genres", qs);
 
       return data.data[0];
     }),

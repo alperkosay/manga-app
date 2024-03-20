@@ -3,6 +3,7 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 import QueryString from "qs";
 import { Payload } from "~/types/payload";
 import { MainSlide } from "~/types/main-slides";
+import { getStrapiData } from "~/lib/utils";
 
 export const mainSlidesRouter = createTRPCRouter({
   getAll: publicProcedure.query(async () => {
@@ -12,12 +13,6 @@ export const mainSlidesRouter = createTRPCRouter({
       },
       { encodeValuesOnly: true },
     );
-    const response = await fetch(
-      `${env.NEXT_PUBLIC_API_URL}/main-slides?${qs}`,
-    );
-
-    const data = (await response.json()) as Payload<MainSlide[]>;
-
-    return data;
+    return getStrapiData<MainSlide[]>("/main-slides", qs);
   }),
 });

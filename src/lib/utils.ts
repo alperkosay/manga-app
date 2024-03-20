@@ -1,5 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { env } from "~/env";
+import { Payload } from "~/types/payload";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -25,4 +27,11 @@ export function calcDateDiff(dateString: string) {
   if (hours) return `${hours} Saat`;
   if (minutes) return `${minutes} Dakika`;
   if (seconds) return null;
+}
+
+export async function getStrapiData<T>(endpoint: string, qs?: string) {
+  const response = await fetch(`${env.NEXT_PUBLIC_API_URL}${endpoint}?${qs}`, {
+    next: { revalidate: 30 },
+  });
+  return (await response.json()) as Payload<T>;
 }
