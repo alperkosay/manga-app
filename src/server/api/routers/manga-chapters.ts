@@ -1,9 +1,8 @@
 import QueryString from "qs";
 import { createTRPCRouter, publicProcedure } from "../trpc";
-import { env } from "~/env";
 import { MangaChapter } from "~/types/manga-chapter";
-import { Payload } from "~/types/payload";
 import { z } from "zod";
+import { getStrapiData } from "~/lib/utils";
 
 export const mangaChapterRouter = createTRPCRouter({
   getLastUpdatedChaptersByMangaId: publicProcedure
@@ -29,13 +28,7 @@ export const mangaChapterRouter = createTRPCRouter({
         },
       );
 
-      const response = await fetch(
-        `${env.NEXT_PUBLIC_API_URL}/manga-chapters?${qs}`,
-      );
-
-      const data = (await response.json()) as Payload<MangaChapter[]>;
-
-      return data;
+      return getStrapiData<MangaChapter[]>("/manga-chapters", qs);
     }),
 
   getByChapter: publicProcedure
@@ -63,11 +56,7 @@ export const mangaChapterRouter = createTRPCRouter({
         { encodeValuesOnly: true },
       );
 
-      const response = await fetch(
-        `${env.NEXT_PUBLIC_API_URL}/manga-chapters?${qs}`,
-      );
-      const data = (await response.json()) as Payload<MangaChapter[]>;
-
+      const data = await getStrapiData<MangaChapter[]>("/manga-chapters", qs);
       return data.data[0];
     }),
 
@@ -98,12 +87,6 @@ export const mangaChapterRouter = createTRPCRouter({
         },
       );
 
-      const response = await fetch(
-        `${env.NEXT_PUBLIC_API_URL}/manga-chapters?${qs}`,
-      );
-
-      const data = (await response.json()) as Payload<MangaChapter[]>;
-
-      return data;
+      return getStrapiData<MangaChapter[]>("/manga-chapters", qs);
     }),
 });
